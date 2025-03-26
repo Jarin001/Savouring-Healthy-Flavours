@@ -25,7 +25,7 @@ public class MealMoodLogger implements IMealMoodLogger{
                 if (entry.length == 2) history.add(entry);
             }
         } catch (IOException e) {
-            System.out.println("❌ Could not read history.");
+            System.out.println("Could not read history.");
         }
 
         return history;
