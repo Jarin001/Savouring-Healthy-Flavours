@@ -12,6 +12,8 @@ public class Main {
         ChallengeProvider challenge = new ChallengeProvider();
         QuoteProvider quote = new QuoteProvider();
         CustomRewardSystem rewardSystem = new CustomRewardSystem();
+        WeeklyScoreChart chart = new WeeklyScoreChart();
+
         System.out.println();
         System.out.println();
         System.out.println();
@@ -40,7 +42,8 @@ public class Main {
             16. Edit a reward
             17. Delete a reward
             18. View all custom rewards
-            19. Exit
+            19.View Weekly Score Chart (Graph)
+            20. Exit
             """);
 
             System.out.print("Select: ");
@@ -142,6 +145,7 @@ public class Main {
                 case 15 -> rewardSystem.checkRewards(scoreManager.getScore());
 
                 case 16 -> {
+                    rewardSystem.viewRewards();
                     System.out.print("Reward to edit (or 'back'): ");
                     String name = scanner.nextLine();
                     if (name.equalsIgnoreCase("back")) break;
@@ -152,6 +156,7 @@ public class Main {
                 }
 
                 case 17 -> {
+                    rewardSystem.viewRewards();
                     System.out.print("Reward to delete (or 'back'): ");
                     String name = scanner.nextLine();
                     if (name.equalsIgnoreCase("back")) break;
@@ -161,6 +166,10 @@ public class Main {
                 case 18 -> rewardSystem.viewRewards();
 
                 case 19 -> {
+                    chart.displayChart();
+                }
+
+                case 20 -> {
                     System.out.println("👋 Goodbye! Stay strong, stay healthy.");
                     running = false;
                     continue;
