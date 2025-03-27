@@ -1,0 +1,116 @@
+salad,20
+smoothie,15
+fruit bowl,18
+grilled chicken,25
+boiled eggs,14
+vegetable soup,17
+oatmeal,15
+yogurt,10
+avocado toast,20
+stir-fried veggies,16
+nuts,12
+banana,10
+quinoa bowl,18
+tofu stir-fry,17
+lentil soup,16
+hummus and veggies,14
+roasted sweet potatoes,14
+sushi,18
+miso soup,15
+pho,16
+ramen,-5
+fried rice,-4
+katsu curry,-6
+kimchi,12
+bibimbap,16
+spring rolls,10
+caprese salad,18
+grilled veggie pasta,15
+minestrone soup,17
+margherita pizza,-4
+lasagna,-6
+fettuccine alfredo,-7
+spaghetti bolognese,-4
+gnocchi with tomato sauce,14
+bruschetta,12
+grilled salmon,25
+turkey sandwich,14
+veggie burger,12
+steak,10
+bacon cheeseburger,-10
+hot dog,-8
+chicken nuggets,-6
+french fries,-6
+onion rings,-5
+corn on the cob,12
+fish and chips,-6
+roast chicken with veggies,20
+porridge,12
+bangers and mash,-4
+jacket potato with beans,14
+shepherd's pie,-3
+dal,18
+roti with sabzi,16
+tandoori chicken,20
+palak paneer,17
+biryani,-6
+butter chicken,-5
+puri and aloo,-6
+idli with sambar,16
+chole bhature,-7
+shutki bhuna,-7
+mach bhat,20
+shorshe ilish,18
+shobji bhaji,16
+dim curry,14
+chicken rezala,-4
+tehari,-6
+chicken tacos,16
+bean burrito,14
+guacamole and veggies,18
+quesadilla,-4
+nachos with cheese,-6
+enchiladas,-4
+grilled fish tacos,17
+churros,-7
+greek salad,20
+falafel with hummus,15
+tabbouleh,17
+chicken shawarma wrap,14
+injera with lentils,18
+jollof rice with chicken,16
+egusi soup,-4
+fried plantains,-5
+ice cream,-7
+chocolate cake,-9
+donuts,-10
+candy bar,-8
+milkshake,-9
+pastries,-6
+fruit salad,10
+kheer,-4
+halwa,-5
+gulab jamun,-8
+rasgulla,-7
+mishti doi,-6
+barfi,-7
+laddu,-6
+brownie,-9
+cheesecake,-8
+cookies,-6
+chicken biryani,-5
+beef biryani,-6
+vegetable biryani,-2
+chicken kebab,18
+beef kebab,16
+seekh kebab,15
+tandoori roti,12
+naan,-3
+paratha,-5
+chicken karahi,-3
+beef korma,-6
+chana masala,16
+saag with roti,17
+dal gosht,14
+chicken pulao,-2
+chicken pulao,-2

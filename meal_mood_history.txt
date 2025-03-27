@@ -1,0 +1,5 @@
+Salad,Happy
+juice,happy
+fruit,happy
+nuts,neutral
+,

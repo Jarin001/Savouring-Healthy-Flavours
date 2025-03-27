@@ -59,13 +59,25 @@ public class MoodBasedRecommender {
                 ))
         );
 
-        public String suggest(String mood) {
-            List<String> options = suggestions.get(mood.toLowerCase());
-            if (options != null && !options.isEmpty()) {
-                return options.get(new Random().nextInt(options.size()));
-            }
-            return "Try a simple, balanced meal with protein, carbs, and vegetables.";
+    public String suggest(String mood) {
+        List<String> options = suggestions.get(mood.toLowerCase());
+        if (options != null && !options.isEmpty()) {
+            return options.get(new Random().nextInt(options.size()));
         }
+
+        List<String> fallback = List.of(
+                "Try a simple, balanced meal with protein, carbs, and vegetables.",
+                "How about some brown rice with grilled veggies and tofu?",
+                "A quinoa salad with chickpeas and colorful veggies can nourish you.",
+                "Consider soup and whole grain bread for a hearty, comforting meal.",
+                "Mix whole grains, lean proteins, and greens for a nutritious plate.",
+                "Try something light like steamed fish, spinach, and lentils.",
+                "Oats with fruits and seeds make a satisfying choice.",
+                "A boiled egg, avocado toast, and some fruit is a good combo."
+        );
+        return fallback.get(new Random().nextInt(fallback.size()));
     }
+
+}
 
 
