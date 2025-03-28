@@ -1,7 +1,2 @@
-Salad,Happy
-juice,happy
-fruit,happy
-nuts,neutral
-,
-,
+
 chicken,happy

@@ -25,25 +25,30 @@ public class LoggingAndMealsHandler {
 
             switch (choice) {
                 case 1 -> {
-                    System.out.print("Meal: ");
+                    System.out.print("Meal (or 'back' to cancel): ");
                     String meal = scanner.nextLine();
-                    System.out.print("Mood: ");
+                    if (meal.equalsIgnoreCase("back")) break;
+                    System.out.print("Mood (or 'back' to cancel): ");
                     String mood = scanner.nextLine();
+                    if (mood.equalsIgnoreCase("back")) break;
                     logger.log(meal, mood);
                     scoreManager.addMealPoints(meal);
                 }
                 case 2 -> {
-                    System.out.print("New Meal: ");
+                    System.out.print("New Meal (or 'back' to cancel): ");
                     String meal = scanner.nextLine();
+                    if (meal.equalsIgnoreCase("back")) break;
                     System.out.print("Points: ");
                     int pts = scanner.nextInt(); scanner.nextLine();
                     scoreManager.addMealToFile(meal, pts);
                 }
                 case 3 -> {
-                    System.out.print("Search: ");
+                    System.out.print("Search keyword (or 'back' to cancel): ");
                     String kw = scanner.nextLine().toLowerCase();
+                    if (kw.equalsIgnoreCase("back")) break;
+
                     scoreManager.getAllMeals().stream()
-                            .filter(m -> m.contains(kw))
+                            .filter(m -> m.contains(kw.toLowerCase()))
                             .forEach(m -> System.out.println(m + ": " + scoreManager.getMealPoint(m)));
                 }
                 case 4 -> { return; }

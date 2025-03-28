@@ -24,7 +24,7 @@ public class StatsAndScoresHandler {
             int choice = scanner.nextInt(); scanner.nextLine();
 
             switch (choice) {
-                case 1 -> System.out.println("✅ Score: " + scoreManager.getScore());
+                case 1 -> System.out.println("Score: " + scoreManager.getScore());
                 case 2 -> logger.getHistory().forEach(e -> System.out.println(e[0] + " - " + e[1]));
                 case 3 -> scoreManager.getAllMeals()
                         .forEach(m -> System.out.println(m + ": " + scoreManager.getMealPoint(m)));

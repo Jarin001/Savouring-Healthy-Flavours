@@ -11,47 +11,58 @@ public class WeeklyScoreChart {
             System.out.println("No score log found.");
             return;
         }
-        Map<DayOfWeek, Integer> weeklyScores = new EnumMap<>(DayOfWeek.class);
-        for (DayOfWeek day : DayOfWeek.values()) {
-            weeklyScores.put(day, 0);
-        }
+
+        Map<LocalDate, Integer> rawScores = new TreeMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(scoreLogFile))) {
             String line;
-            LocalDate today = LocalDate.now();
-            LocalDate weekAgo = today.minusDays(6);
-
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length != 2) continue;
-
-                LocalDate date = LocalDate.parse(parts[0].trim());
-                int score = Integer.parseInt(parts[1].trim());
-
-                if (!date.isBefore(weekAgo)) {
-                    DayOfWeek day = date.getDayOfWeek();
-                    weeklyScores.put(day, score);
+                if (parts.length == 2) {
+                    LocalDate date = LocalDate.parse(parts[0].trim());
+                    int score = Integer.parseInt(parts[1].trim());
+                    rawScores.put(date, score);
                 }
             }
-
-        } catch (IOException | DateTimeException | NumberFormatException e) {
-            System.out.println("Error reading score log.");
+        } catch (Exception e) {
+            System.out.println("Failed to read log.");
             return;
         }
 
-        System.out.println("\nWeekly Score Chart:\n");
+        LocalDate today = LocalDate.now();
+        LocalDate weekAgo = today.minusDays(6);
 
-        for (DayOfWeek day : DayOfWeek.values()) {
-            String dayLabel = String.format("%-3s", day.toString().substring(0, 3));
-            int score = weeklyScores.get(day);
-            String bar = "█".repeat(score / 10);
-            System.out.printf("%s | %-20s %d pts\n", dayLabel, bar, score);
+        Map<DayOfWeek, Integer> dailyScores = new EnumMap<>(DayOfWeek.class);
+        LocalDate prevDate = null;
+        int prevScore = 0;
+
+        for (Map.Entry<LocalDate, Integer> entry : rawScores.entrySet()) {
+            LocalDate date = entry.getKey();
+            int score = entry.getValue();
+
+            if (date.isBefore(weekAgo)) continue;
+
+            int delta = prevDate == null ? score : (score - prevScore);
+            dailyScores.put(date.getDayOfWeek(), delta);
+
+            prevDate = date;
+            prevScore = score;
         }
 
-        int total = weeklyScores.values().stream().mapToInt(Integer::intValue).sum();
-        long above100 = weeklyScores.values().stream().filter(s -> s >= 100).count();
+        System.out.println("\n📈 Weekly Score Chart:\n");
 
-        System.out.printf("\nTotal weekly score: %d pts\n", total);
-        System.out.printf("Days with 100+ points: %d/7\n", above100);
+        for (DayOfWeek day : DayOfWeek.values()) {
+            String label = String.format("%-3s", day.toString().substring(0, 3));
+            int score = dailyScores.getOrDefault(day, 0);
+            String bar = "█".repeat(score / 10);
+            System.out.printf("%s | %-20s %d pts%n", label, bar, score);
+        }
+
+        int total = dailyScores.values().stream().mapToInt(Integer::intValue).sum();
+        long above100 = dailyScores.values().stream().filter(s -> s >= 100).count();
+
+        System.out.printf("\n📊 Total weekly score: %d pts%n", total);
+        System.out.printf("Days with 100+ points: %d/7%n", above100);
     }
+
 }

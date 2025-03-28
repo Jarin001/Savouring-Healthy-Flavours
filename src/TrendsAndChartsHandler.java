@@ -42,8 +42,11 @@ public class TrendsAndChartsHandler {
                             .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                             .limit(5).forEach(e -> System.out.println(e.getKey() + ": " + e.getValue()));
                 }
-                case 3 -> scoreManager.getWeeklyScores()
-                        .forEach((d, v) -> System.out.println(d + ": " + v));
+                case 3 -> {
+                    System.out.println("📆 Weekly Score Trend:");
+                    scoreManager.getWeeklyScores().forEach((date, score) ->
+                            System.out.println(date + ": " + score + " pts"));
+                }
                 case 4 -> chart.displayChart();
                 case 5 -> { return; }
                 default -> System.out.println("Invalid option.");

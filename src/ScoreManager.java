@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -92,29 +94,91 @@ class ScoreManager implements IScoreManager {
 
     @Override
     public void logDailyScore() {
-        String today = java.time.LocalDate.now().toString();
+        String today = LocalDate.now().toString();
+        int currentTotalScore = getScore();
+
+        String lastDate = "";
+        int lastCumulativeScore = 0;
+
+        if (scoreLogFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(scoreLogFile))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(",");
+                    if (parts.length == 2) {
+                        lastDate = parts[0].trim();
+                        lastCumulativeScore = Integer.parseInt(parts[1].trim());
+                    }
+                }
+            } catch (IOException | NumberFormatException e) {
+                System.out.println("Error reading score log.");
+            }
+        }
+
+        if (lastDate.equals(today)) {
+            return;
+        }
+
+        int delta = currentTotalScore - getLastCumulativeScoreBefore(today);
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoreLogFile, true))) {
-            writer.write(today + "," + score);
+            writer.write(today + "," + delta);
             writer.newLine();
         } catch (IOException e) {
-            System.out.println("Couldn't log score.");
+            System.out.println("Couldn't log today's score.");
         }
     }
 
-    @Override
-    public Map<String, Integer> getWeeklyScores() {
-        Map<String, Integer> map = new LinkedHashMap<>();
-        if (!scoreLogFile.exists()) return map;
+    private int getLastCumulativeScoreBefore(String today) {
+        int lastScore = 0;
+        if (!scoreLogFile.exists()) return 0;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(scoreLogFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 2) map.put(parts[0], Integer.parseInt(parts[1]));
+                if (parts.length == 2) {
+                    String date = parts[0].trim();
+                    int score = Integer.parseInt(parts[1].trim());
+                    if (date.compareTo(today) < 0) {
+                        lastScore += score;
+                    }
+                }
             }
-        } catch (IOException e) {
-            System.out.println("Couldn't read score log.");
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Error calculating previous score.");
         }
-        return map;
+
+        return lastScore;
     }
+
+    @Override
+    public Map<String, Integer> getWeeklyScores() {
+        Map<String, Integer> weeklyScores = new LinkedHashMap<>();
+
+        if (!scoreLogFile.exists()) return weeklyScores;
+
+        LocalDate today = LocalDate.now();
+        LocalDate weekAgo = today.minusDays(6);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(scoreLogFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    LocalDate date = LocalDate.parse(parts[0].trim());
+                    int score = Integer.parseInt(parts[1].trim());
+
+                    if (!date.isBefore(weekAgo)) {
+                        weeklyScores.put(date.toString(), score);
+                    }
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Error reading weekly scores.");
+        }
+
+        return weeklyScores;
+    }
+
 }

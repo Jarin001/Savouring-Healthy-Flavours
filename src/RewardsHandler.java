@@ -32,8 +32,9 @@ public class RewardsHandler {
             switch (choice) {
                 case 1 -> defaultRewards.showRewards(scoreManager.getScore());
                 case 2 -> {
-                    System.out.print("Goal name: ");
+                    System.out.print("Goal name (or 'back' to cancel): ");
                     String name = scanner.nextLine();
+                    if (name.equalsIgnoreCase("back")) break;
                     System.out.print("Points: ");
                     int pts = scanner.nextInt(); scanner.nextLine();
                     rewardSystem.addReward(name, pts);

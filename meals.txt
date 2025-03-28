@@ -115,3 +115,4 @@ dal gosht,14
 chicken pulao,-2
 chicken pulao,-2
 chicken ,12
+pasta,10
