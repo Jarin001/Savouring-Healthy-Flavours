@@ -13,6 +13,8 @@ public class Main {
         QuoteProvider quote = new QuoteProvider();
         CustomRewardSystem rewardSystem = new CustomRewardSystem();
         WeeklyScoreChart chart = new WeeklyScoreChart();
+        DefaultRewardManager defaultRewards = new DefaultRewardManager();
+
 
         System.out.println();
         System.out.println();
