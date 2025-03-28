@@ -44,7 +44,7 @@ public class Main {
             16. Edit a reward
             17. Delete a reward
             18. View all custom rewards
-            19.View Weekly Score Chart (Graph)
+            19.Weekly Score Chart
             20. Exit
             """);
 
@@ -144,13 +144,7 @@ public class Main {
 
                 case 16 -> rewardSystem.editReward(scanner);
 
-                case 17 -> {
-                    rewardSystem.viewRewards();
-                    System.out.print("Reward to delete (or 'back'): ");
-                    String name = scanner.nextLine();
-                    if (name.equalsIgnoreCase("back")) break;
-                    rewardSystem.deleteReward(name);
-                }
+                case 17 -> rewardSystem.deleteReward(scanner);
 
                 case 18 -> rewardSystem.viewRewards();
 
