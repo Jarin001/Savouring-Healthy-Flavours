@@ -85,7 +85,8 @@ public class Main {
                 case 7 -> {
                     int score = scoreManager.getScore();
                     System.out.println(score >= 100
-                            ? "🏆 Default reward unlocked!" : (100 - score) + " pts to go!");
+                            ? "🏆 Default reward unlocked! Treat yourself an ice-cream." :
+                            (100 - score) + " pts to go!");
                 }
 
                 case 8 -> System.out.println("🔥 Challenge: " + challenge.getChallenge());
