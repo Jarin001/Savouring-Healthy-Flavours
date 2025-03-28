@@ -84,12 +84,8 @@ public class Main {
 
                 case 6 -> summary.generate(logger.getHistory());
 
-                case 7 -> {
-                    int score = scoreManager.getScore();
-                    System.out.println(score >= 100
-                            ? "🏆 Default reward unlocked! Treat yourself an ice-cream." :
-                            (100 - score) + " pts to go!");
-                }
+                case 7 -> defaultRewards.showRewards(scoreManager.getScore());
+
 
                 case 8 -> System.out.println("🔥 Challenge: " + challenge.getChallenge());
 
