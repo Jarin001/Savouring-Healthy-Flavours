@@ -63,10 +63,10 @@ public class Main {
 
                     logger.log(meal, mood);
                     scoreManager.addMealPoints(meal);
-                    System.out.println("✅ Logged successfully.");
+                    System.out.println("Logged successfully.");
                 }
 
-                case 2 -> System.out.println("✅ Current Score: " + scoreManager.getScore());
+                case 2 -> System.out.println("Current Score: " + scoreManager.getScore());
 
                 case 3 -> {
                     System.out.println("📜 Meal History:");
@@ -85,7 +85,6 @@ public class Main {
                 case 6 -> summary.generate(logger.getHistory());
 
                 case 7 -> defaultRewards.showRewards(scoreManager.getScore());
-
 
                 case 8 -> System.out.println("🔥 Challenge: " + challenge.getChallenge());
 
@@ -174,11 +173,11 @@ public class Main {
                     continue;
                 }
 
-                default -> System.out.println("❌ Invalid option. Try again.");
+                default -> System.out.println("Invalid option. Try again.");
             }
 
             if (running) {
-                System.out.println("\n🔁 Press Enter to return to the menu...");
+                System.out.println("\nPress Enter to return to the menu...");
                 scanner.nextLine();
             }
         }

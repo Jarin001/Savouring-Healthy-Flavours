@@ -47,14 +47,48 @@ public class CustomRewardSystem {
         System.out.println("Reward \"" + name + "\" added with goal " + points + " pts.");
     }
 
-    public void editReward(String name, int newPoints) {
-        if (!rewards.containsKey(name)) {
-            System.out.println("Reward not found.");
+    public void editReward(Scanner scanner) {
+        if (rewards.isEmpty()) {
+            System.out.println("No rewards to edit.");
             return;
         }
-        rewards.put(name, newPoints);
+
+        List<String> rewardKeys = new ArrayList<>(rewards.keySet());
+
+        System.out.println("Select a reward to edit:");
+        for (int i = 0; i < rewardKeys.size(); i++) {
+            String reward = rewardKeys.get(i);
+            System.out.printf("%d. %s (%d pts)%n", i + 1, reward, rewards.get(reward));
+        }
+
+        System.out.print("Enter reward number: ");
+        int choice;
+        try {
+            choice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return;
+        }
+
+        if (choice < 1 || choice > rewardKeys.size()) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+
+        String selectedReward = rewardKeys.get(choice - 1);
+
+        System.out.print("Enter new point value for \"" + selectedReward + "\": ");
+        int newPoints;
+        try {
+            newPoints = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return;
+        }
+
+        rewards.put(selectedReward, newPoints);
         saveRewards();
-        System.out.println("Reward \"" + name + "\" updated to " + newPoints + " pts.");
+        System.out.println("Reward \"" + selectedReward + "\" updated to " + newPoints + " pts.");
     }
 
     public void deleteReward(String name) {

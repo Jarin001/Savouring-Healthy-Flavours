@@ -114,3 +114,4 @@ saag with roti,17
 dal gosht,14
 chicken pulao,-2
 chicken pulao,-2
+chicken ,12
