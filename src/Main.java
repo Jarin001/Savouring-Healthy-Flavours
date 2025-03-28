@@ -143,7 +143,7 @@ public class Main {
                 case 15 -> rewardSystem.checkRewards(scoreManager.getScore());
 
                 case 16 -> rewardSystem.editReward(scanner);
-                
+
                 case 17 -> {
                     rewardSystem.viewRewards();
                     System.out.print("Reward to delete (or 'back'): ");

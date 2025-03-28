@@ -91,14 +91,41 @@ public class CustomRewardSystem {
         System.out.println("Reward \"" + selectedReward + "\" updated to " + newPoints + " pts.");
     }
 
-    public void deleteReward(String name) {
-        if (rewards.remove(name) != null) {
-            saveRewards();
-            System.out.println("Reward \"" + name + "\" deleted.");
-        } else {
-            System.out.println("Reward not found.");
+    public void deleteReward(Scanner scanner) {
+        if (rewards.isEmpty()) {
+            System.out.println("No rewards to delete.");
+            return;
         }
+
+        List<String> rewardKeys = new ArrayList<>(rewards.keySet());
+
+        System.out.println("Select a reward to delete:");
+        for (int i = 0; i < rewardKeys.size(); i++) {
+            String reward = rewardKeys.get(i);
+            System.out.printf("%d. %s (%d pts)%n", i + 1, reward, rewards.get(reward));
+        }
+
+        System.out.print("Enter reward number: ");
+        int choice;
+        try {
+            choice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return;
+        }
+
+        if (choice < 1 || choice > rewardKeys.size()) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+
+        String selectedReward = rewardKeys.get(choice - 1);
+        rewards.remove(selectedReward);
+        saveRewards();
+
+        System.out.println("Reward \"" + selectedReward + "\" deleted.");
     }
+
 
     public void viewRewards() {
         if (rewards.isEmpty()) {
