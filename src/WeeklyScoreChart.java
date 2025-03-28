@@ -58,6 +58,6 @@ public class WeeklyScoreChart {
         long above100 = weeklyScores.values().stream().filter(s -> s >= 100).count();
 
         System.out.printf("\n📊 Total weekly score: %d pts%n", total);
-        System.out.printf("✅ Days with 100+ points: %d/7%n", above100);
+        System.out.printf("Days with 100+ points: %d/7%n", above100);
     }
 }
