@@ -6,6 +6,6 @@ interface IScoreManager {
     int getScore();
     Set<String> getAllMeals();
     Integer getMealPoint(String meal);
-    void logDailyScore();
+    void logPointsForToday(int pointsToAdd);
     Map<String, Integer> getWeeklyScores();
 }

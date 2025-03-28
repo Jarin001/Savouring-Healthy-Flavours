@@ -56,7 +56,7 @@ class ScoreManager implements IScoreManager {
         }
         score += points;
         saveScore();
-        logDailyScore();
+        logPointsForToday(points);
         System.out.println("Points earned: " + points);
     }
 
@@ -93,12 +93,9 @@ class ScoreManager implements IScoreManager {
     }
 
     @Override
-    public void logDailyScore() {
+    public void logPointsForToday(int pointsToAdd) {
         String today = LocalDate.now().toString();
-        int currentTotalScore = getScore();
-
-        String lastDate = "";
-        int lastCumulativeScore = 0;
+        Map<String, Integer> scores = new LinkedHashMap<>();
 
         if (scoreLogFile.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(scoreLogFile))) {
@@ -106,51 +103,26 @@ class ScoreManager implements IScoreManager {
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(",");
                     if (parts.length == 2) {
-                        lastDate = parts[0].trim();
-                        lastCumulativeScore = Integer.parseInt(parts[1].trim());
+                        scores.put(parts[0].trim(), Integer.parseInt(parts[1].trim()));
                     }
                 }
-            } catch (IOException | NumberFormatException e) {
-                System.out.println("Error reading score log.");
+            } catch (IOException e) {
+                System.out.println("Could not read score log.");
             }
         }
 
-        if (lastDate.equals(today)) {
-            return;
-        }
+        scores.put(today, scores.getOrDefault(today, 0) + pointsToAdd);
 
-        int delta = currentTotalScore - getLastCumulativeScoreBefore(today);
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoreLogFile, true))) {
-            writer.write(today + "," + delta);
-            writer.newLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoreLogFile))) {
+            for (Map.Entry<String, Integer> entry : scores.entrySet()) {
+                writer.write(entry.getKey() + "," + entry.getValue());
+                writer.newLine();
+            }
         } catch (IOException e) {
-            System.out.println("Couldn't log today's score.");
+            System.out.println("Could not write score log.");
         }
     }
 
-    private int getLastCumulativeScoreBefore(String today) {
-        int lastScore = 0;
-        if (!scoreLogFile.exists()) return 0;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(scoreLogFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    String date = parts[0].trim();
-                    int score = Integer.parseInt(parts[1].trim());
-                    if (date.compareTo(today) < 0) {
-                        lastScore += score;
-                    }
-                }
-            }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Error calculating previous score.");
-        }
-
-        return lastScore;
-    }
 
     @Override
     public Map<String, Integer> getWeeklyScores() {
