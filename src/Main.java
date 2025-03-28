@@ -142,17 +142,8 @@ public class Main {
 
                 case 15 -> rewardSystem.checkRewards(scoreManager.getScore());
 
-                case 16 -> {
-                    rewardSystem.viewRewards();
-                    System.out.print("Reward to edit (or 'back'): ");
-                    String name = scanner.nextLine();
-                    if (name.equalsIgnoreCase("back")) break;
-
-                    System.out.print("New point goal: ");
-                    int newPts = scanner.nextInt(); scanner.nextLine();
-                    rewardSystem.editReward(name, newPts);
-                }
-
+                case 16 -> rewardSystem.editReward(scanner);
+                
                 case 17 -> {
                     rewardSystem.viewRewards();
                     System.out.print("Reward to delete (or 'back'): ");
