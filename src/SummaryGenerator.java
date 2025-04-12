@@ -14,7 +14,7 @@ public class SummaryGenerator {
             moodCounts.put(mood, moodCounts.getOrDefault(mood, 0) + 1);
         }
 
-        System.out.println("Weekly Mood Summary:");
+        System.out.println("Mood Summary:");
         moodCounts.forEach((mood, count) ->
                 System.out.println(mood + ": " + count + " time(s)")
         );
