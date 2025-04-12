@@ -1,6 +1,6 @@
 # 🌿 Savouring-Healthy-Flavour
 
-A console-based Java application that helps users track their meals, moods, and health progress with features like smart food suggestions, health tips, rewards, and weekly analytics — all designed to help users savour the flavours of health! 🥗💪
+A console-based Java application that helps users track their meals, moods, and health progress with features like smart food suggestions, health tips, rewards, and weekly analytics! 🥗💪
 
 ---
 
