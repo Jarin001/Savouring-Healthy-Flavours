@@ -18,7 +18,7 @@ public class TrendsAndChartsHandler {
         while (true) {
             System.out.println("""
                 \n📈 Trends & Analytics
-                1. Weekly mood summary
+                1. Mood summary
                 2. Top 5 meals/moods
                 3. Weekly score trend
                 4. Weekly score chart
