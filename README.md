@@ -40,6 +40,6 @@ A console-based Java application that helps users track their meals, moods, and 
   Data is saved in local `.txt` files and preserved between sessions.
 
 ## Technologies used
-  **Persistent Storage**  - The core programming language used to implement the project, following object-oriented programming principles like classes, inheritance, and                                       polymorphism.
+  **Java**  - The core programming language used to implement the project, following object-oriented programming principles like classes, inheritance, and                                       polymorphism.
 
 
